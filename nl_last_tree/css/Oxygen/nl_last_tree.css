@@ -1,0 +1,21 @@
+ul.tree a, ul.tree span { margin: 0 0.5em 0 0; text-decoration: none; }
+ul.tree a:hover { text-decoration: underline; }
+
+ul.tree li { background: url("images/f_norm_no.gif") no-repeat 0 5px; padding-left: 25px; margin-top: 0.5em; }
+ul.tree li.new { background-image: url("images/f_norm.gif"); }
+
+ul.tree .forum { font-weight: bold; color: #31659C;  }
+ul.tree .topic { color: #008200; }
+ul.tree li.new .topic { font-weight: bold; }
+ul.tree .date { color: #848284; }
+
+ul.latest { padding: 0 0 0 15px; margin: 0; display: block; width: 90%; overflow: hidden; font-size: 95%; }
+ul.latest li { margin: 0; padding-right: 0.5em; float: left; display: inline; color: #848284; white-space: nowrap; }
+ul.latest li a { color: #848284; }
+ul.latest li { background: url("images/orange_bullit_small.gif") no-repeat 4px 0.7em; padding-left: 15px; }
+ul.latest li.new { background: url("images/orange_bullit_small.gif") no-repeat 4px 0.7em; padding-left: 15px; }
+ul.latest li.new .name { color: #F7494A; }
+ul.latest li a:hover { text-decoration: none; }
+ul.latest li a:hover .name { text-decoration: underline; }
+
+ul.latest li.dot { background-image: none; padding-left: 0; padding-right: 1em; }

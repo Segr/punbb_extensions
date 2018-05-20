@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<extension engine="1.0">
+	<id>nl_last_tree</id>
+	<title>[NL] Last Tree</title>
+	<version>0.10</version>
+	<description>Show last post like tree.</description>
+	<author>Segr</author>
+	<minversion>1.3</minversion>
+	<maxtestedon>1.4.4</maxtestedon>
+	
+	<install></install>
+	
+	<uninstall></uninstall>
+	
+	<hooks>
+		<hook id="mi_new_action"><![CDATA[
+            include $ext_info['path'].'/hooks/mi_new_action.php';
+		]]></hook>
+		<hook id="re_rewrite_rules"><![CDATA[
+            include $ext_info['path'].'/hooks/re_rewrite_rules.php';
+		]]></hook>
+		<hook id="hd_visit_elements"><![CDATA[
+            include $ext_info['path'].'/hooks/hd_visit_elements.php';
+		]]></hook>
+		<hook id="co_modify_url_scheme"><![CDATA[
+            include $ext_info['path'].'/hooks/co_modify_url_scheme.php';
+		]]></hook>
+		</hooks>
+</extension>
