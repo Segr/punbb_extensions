@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<extension engine="1.0">
+	<id>nl_gravatar</id>
+	<title>[NL] Gravatars</title>
+	<version>0.1</version>
+	<description>Adds a new profile section for users to link to their Gravatar. Configuration is on the Settings > Features page.</description>
+	<author>Segr</author>
+	<minversion>1.4.4</minversion>
+	<maxtestedon>1.4.4</maxtestedon>
+	<install><![CDATA[
+		include $ext_info['path'].'/install.php';
+	]]></install>
+	<uninstall><![CDATA[
+		include $ext_info['path'].'/uninstall.php';
+	]]></uninstall>
+	<hooks>
+		<hook id="aop_start"><![CDATA[
+			include $ext_info['path'].'/hooks/aop_start.php';
+		]]></hook>
+		<hook id="vt_qr_get_posts"><![CDATA[
+			include $ext_info['path'].'/hooks/vt_qr_get_posts.php';
+		]]></hook>
+		<hook id="fn_generate_avatar_markup_end"><![CDATA[
+			include $ext_info['path'].'/hooks/fn_generate_avatar_markup_end.php';
+		]]></hook>
+		<hook id="vt_row_pre_post_contacts_merge"><![CDATA[
+			include $ext_info['path'].'/hooks/vt_row_pre_post_contacts_merge.php';
+		]]></hook>
+		<hook id="aop_features_validation"><![CDATA[
+			include $ext_info['path'].'/hooks/aop_features_validation.php';
+		]]></hook>
+		<hook id="aop_features_sig_fieldset_end"><![CDATA[
+			include $ext_info['path'].'/hooks/aop_features_sig_fieldset_end.php';
+		]]></hook>
+		<hook id="pf_start"><![CDATA[
+			include $ext_info['path'].'/hooks/pf_start.php';
+		]]></hook>
+		<hook id="pf_change_details_modify_main_menu"><![CDATA[
+			include $ext_info['path'].'/hooks/pf_change_details_modify_main_menu.php';
+		]]></hook>
+		<hook id="pf_change_details_new_section"><![CDATA[
+			include $ext_info['path'].'/hooks/pf_change_details_new_section.php';
+		]]></hook>
+		<hook id="pf_change_details_new_section_validation"><![CDATA[
+			include $ext_info['path'].'/hooks/pf_change_details_new_section_validation.php';
+		]]></hook>
+		<hook id="re_rewrite_rules"><![CDATA[
+            include $ext_info['path'].'/hooks/re_rewrite_rules.php';
+		]]></hook>
+		<hook id="co_modify_url_scheme"><![CDATA[
+			include $ext_info['path'].'/hooks/co_modify_url_scheme.php';
+		]]></hook>
+	</hooks>
+</extension>
