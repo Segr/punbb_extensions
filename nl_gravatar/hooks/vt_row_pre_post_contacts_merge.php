@@ -1,10 +1,11 @@
 <?php
 if (!defined('FORUM')) die();
+global $forum_db;
 
 $gr_site = 'http://www.gravatar.com';
 
 $gr_email = strtolower(trim($cur_post['poster_email']));
-if ($cur_post['poster_id']==1 && $forum_config['o_nl_gravatar_guests']=='1' && !empty($gr_email)){
+if ($cur_post['poster_id']==1 && !empty($gr_email)){
 	$gr_width  = $forum_config['o_nl_gravatar_width'];
 	if ($forum_config['o_nl_gravatar_default']=='defaultimage') {
 		$default_image = $forum_config['o_nl_gravatar_default_image'];

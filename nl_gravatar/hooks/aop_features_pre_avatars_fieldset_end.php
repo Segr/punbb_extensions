@@ -1,12 +1,9 @@
 <?php
 if (!defined('FORUM')) die();
-$forum_page['group_count'] = $forum_page['item_count'] = 0; 
 ?>
-<div class="content-head">
-	<h2 class="hn"><span><?php echo $lang_nl_gravatar['Gravatars']; ?></span></h2>
-</div>
+</fieldset>
 <fieldset class="frm-group group<?php echo ++$forum_page['group_count'] ?>">
-		<legend class="group-legend"><span><?php echo $lang_admin_settings['Features Avatars legend'] ?></span></legend>
+<legend class="group-legend"><span><?php echo $lang_admin_settings['Features Avatars legend'] ?></span></legend>
 <div class="sf-set set<?php echo ++$forum_page['item_count'] ?>">
 	<div class="sf-box checkbox">
 	<span class="fld-input"><input type="checkbox" id="fld<?php echo ++$forum_page['fld_count'] ?>" name="form[nl_gravatar]" value="1"<?php if ($forum_config['o_nl_gravatar'] == '1') echo ' checked="checked"' ?> /></span>
@@ -67,4 +64,3 @@ $forum_page['group_count'] = $forum_page['item_count'] = 0;
 		</select></span>
 	</div>
 </div>
-</fieldset>

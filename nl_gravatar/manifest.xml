@@ -3,7 +3,7 @@
 <extension engine="1.0">
 	<id>nl_gravatar</id>
 	<title>[NL] Gravatars</title>
-	<version>0.1</version>
+	<version>0.11</version>
 	<description>Adds a new profile section for users to link to their Gravatar. Configuration is on the Settings > Features page.</description>
 	<author>Segr</author>
 	<minversion>1.4.4</minversion>
@@ -15,35 +15,47 @@
 		include $ext_info['path'].'/uninstall.php';
 	]]></uninstall>
 	<hooks>
-		<hook id="aop_start"><![CDATA[
-			include $ext_info['path'].'/hooks/aop_start.php';
+		<hook id="co_common"><![CDATA[
+			include $ext_info['path'].'/hooks/co_common.php';
 		]]></hook>
 		<hook id="vt_qr_get_posts"><![CDATA[
 			include $ext_info['path'].'/hooks/vt_qr_get_posts.php';
 		]]></hook>
 		<hook id="fn_generate_avatar_markup_end"><![CDATA[
-			include $ext_info['path'].'/hooks/fn_generate_avatar_markup_end.php';
+			if ($forum_config['o_nl_gravatar']=='1') {
+				include $ext_info['path'].'/hooks/fn_generate_avatar_markup_end.php';
+			}
 		]]></hook>
 		<hook id="vt_row_pre_post_contacts_merge"><![CDATA[
-			include $ext_info['path'].'/hooks/vt_row_pre_post_contacts_merge.php';
+			if ($forum_config['o_nl_gravatar']=='1') {
+				include $ext_info['path'].'/hooks/vt_row_pre_post_contacts_merge.php';
+			}
+		]]></hook>
+		<hook id="aop_features_pre_avatars_fieldset_end"><![CDATA[
+			include $ext_info['path'].'/hooks/aop_features_pre_avatars_fieldset_end.php';
 		]]></hook>
 		<hook id="aop_features_validation"><![CDATA[
 			include $ext_info['path'].'/hooks/aop_features_validation.php';
 		]]></hook>
-		<hook id="aop_features_sig_fieldset_end"><![CDATA[
-			include $ext_info['path'].'/hooks/aop_features_sig_fieldset_end.php';
+		<hook id="pf_change_details_avatar_output_start"><![CDATA[
+			if ($forum_config['o_nl_gravatar'] == '1') {
+				include $ext_info['path'].'/hooks/pf_change_details_avatar_output_start.php';
+			}
 		]]></hook>
-		<hook id="pf_start"><![CDATA[
-			include $ext_info['path'].'/hooks/pf_start.php';
+		<hook id="pf_change_details_avatar_pre_fieldset_end"><![CDATA[
+			if ($forum_config['o_nl_gravatar'] == '1') {
+				include $ext_info['path'].'/hooks/pf_change_details_avatar_pre_fieldset_end.php';
+			}
 		]]></hook>
-		<hook id="pf_change_details_modify_main_menu"><![CDATA[
-			include $ext_info['path'].'/hooks/pf_change_details_modify_main_menu.php';
+		<hook id="pf_change_details_avatar_validation"><![CDATA[
+			if ($forum_config['o_nl_gravatar'] == '1') {
+				include $ext_info['path'].'/hooks/pf_change_details_avatar_validation.php';
+			}
 		]]></hook>
-		<hook id="pf_change_details_new_section"><![CDATA[
-			include $ext_info['path'].'/hooks/pf_change_details_new_section.php';
-		]]></hook>
-		<hook id="pf_change_details_new_section_validation"><![CDATA[
-			include $ext_info['path'].'/hooks/pf_change_details_new_section_validation.php';
+		<hook id="pf_delete_avatar_selected"><![CDATA[
+			if ($forum_config['o_nl_gravatar'] == '1') {
+				include $ext_info['path'].'/hooks/pf_delete_avatar_selected.php';
+			}
 		]]></hook>
 		<hook id="re_rewrite_rules"><![CDATA[
             include $ext_info['path'].'/hooks/re_rewrite_rules.php';

@@ -34,6 +34,8 @@ $lang_nl_gravatar = array(
 	'Rating - PG' => 'PG - may contain rude gestures, provocatively dressed individuals, the lesser swear words, or mild violence',
 	'Rating - R' => 'R - may contain such things as harsh profanity, intense violence, nudity, or hard drug use',
 	'Rating - X' => 'X - may contain hardcore sexual imagery or extremely disturbing violence',
+	'Current avatar' => 'Your Gravatar',
+	'Delete avatar info' => 'Disable gravatar to stop displaying any avatar.',
 );
 
 if ($forum_db->field_exists('users', 'gender')) {

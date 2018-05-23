@@ -3,7 +3,7 @@
 $lang_nl_gravatar = array(
 	'Allow Gravatars'		=>	'Разрешить граватары',
 	'Allow Use'		=>	'Разрешить пользователям использовать граватары',
-	'Default Gravatar Width'		=>	'Размер граватара по умолчанию',
+	'Default Gravatar Width'		=>	'Размер по умолчанию',
 	'Default Gravatar'		=>	'Граватар по умолчанию',
 	'Default Image'		=>	'Картинка по умолчанию',
 	'Gravatar'			=>	'Граватар',
@@ -14,8 +14,8 @@ $lang_nl_gravatar = array(
 	'Use Your Gravatar'		=>	'Вместо аватара, вы можете использовать <a href="http://gravatar.com/" title="Gravatar">Граватар</a> (<b>G</b>lobally <b>R</b>ecognized <b>Avatar</b>).',
 	'Uploading Avatar'	=>	'Загруженный аватар имеет больший приоретет.',
 	'Gravatar Width'		=>	'Размер граватара в пикселах (рекомендуется 60).',
-	'Guest Gravatars'		=>	'Граватары для гостей',
-	'Allow Guests'		=>	'Генерировать граватары для гостевых постов',
+	'Guest Gravatars'		=>	'Для гостей',
+	'Allow Guests'		=>	'Показвать граватары в гостевых постах',
 	'Why Gravatar Default'	=> 'Тип генерируемого автоматически граватара',
 	'Why Default Image'		=>	'Картинка по умолчанию, если граватр отсутствует',
 	'Gravatar Rating'	=> 'Рейтинг',
@@ -34,11 +34,13 @@ $lang_nl_gravatar = array(
 	'Rating - PG' => 'PG - может содержать грубые жесты, вызывающе одетых людей, ругательные слова или мягкое насилие',
 	'Rating - R' => 'R - может содержать ненормативную лексику, интенсивное насилие, нагота или употребление наркотиков',
 	'Rating - X' => 'X - может содержать хардкор, сексуальные образы или чрезвычайное насилие',
+	'Current avatar' => 'Ваш граватар',
+	'Delete avatar info' => 'Отключите граватар, чтобы прекратить его отображение.',
 );
 
 if ($forum_db->field_exists('users', 'gender')) {
-	$lang_nl_gravatar['Default Image'] = 'Аватар для мальчиков';
-	$lang_nl_gravatar['Default Image2'] = 'Аватар для девочек';
+	$lang_nl_gravatar['Default Image'] = 'Для мальчиков';
+	$lang_nl_gravatar['Default Image2'] = 'Для девочек';
 	$lang_nl_gravatar['Why Default Image'] = 'Картинка по умолчанию для мальчиков, если граватар отсутствует';
 	$lang_nl_gravatar['Why Default Image2'] = 'Картинка по умолчанию для девочек, если граватар отсутствует';
 }

@@ -1,11 +1,10 @@
 <?php
 if (!defined('FORUM')) die();
+global $forum_db;
 
 $gr_site = 'http://www.gravatar.com';
 
-global $forum_db;
-
-if ($forum_config['o_nl_gravatar']=='1' && $avatar_markup=='') {
+if ($avatar_markup=='') {
 	$gr_query = array(
 		'SELECT' => 'email, nl_gravatar',
 		'FROM'   => 'users',
