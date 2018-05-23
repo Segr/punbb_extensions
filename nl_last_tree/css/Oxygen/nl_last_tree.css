@@ -1,7 +1,8 @@
+ul.tree { margin: 0; padding: 0; list-style: none; }
 ul.tree a, ul.tree span { margin: 0 0.5em 0 0; text-decoration: none; }
 ul.tree a:hover { text-decoration: underline; }
 
-ul.tree li { background: url("images/f_norm_no.gif") no-repeat 0 5px; padding-left: 25px; margin-top: 0.5em; }
+ul.tree li { background: url("images/f_norm_no.gif") no-repeat 0 3px; padding-left: 25px; margin-top: 0.5em; }
 ul.tree li.new { background-image: url("images/f_norm.gif"); }
 
 ul.tree .forum { font-weight: bold; color: #31659C;  }

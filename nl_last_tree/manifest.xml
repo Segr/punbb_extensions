@@ -14,13 +14,16 @@
 	
 	<hooks>
 		<hook id="mi_new_action"><![CDATA[
-            include $ext_info['path'].'/hooks/mi_new_action.php';
-		]]></hook>
-		<hook id="re_rewrite_rules"><![CDATA[
-            include $ext_info['path'].'/hooks/re_rewrite_rules.php';
+			$section = isset($_GET['section']) ? $_GET['section'] : null;
+			if ($section == 'last_tree') {
+				include $ext_info['path'].'/hooks/mi_new_action__last_tree.php';
+			}
 		]]></hook>
 		<hook id="hd_visit_elements"><![CDATA[
             include $ext_info['path'].'/hooks/hd_visit_elements.php';
+		]]></hook>
+		<hook id="re_rewrite_rules"><![CDATA[
+            include $ext_info['path'].'/hooks/re_rewrite_rules.php';
 		]]></hook>
 		<hook id="co_modify_url_scheme"><![CDATA[
             include $ext_info['path'].'/hooks/co_modify_url_scheme.php';
