@@ -3,17 +3,19 @@
 <extension engine="1.0">
 	<id>nl_gravatar</id>
 	<title>[NL] Gravatars</title>
-	<version>0.11</version>
+	<version>0.13</version>
 	<description>Adds a new profile section for users to link to their Gravatar. Configuration is on the Settings > Features page.</description>
 	<author>Segr</author>
-	<minversion>1.4.4</minversion>
+	<minversion>1.4</minversion>
 	<maxtestedon>1.4.4</maxtestedon>
+
 	<install><![CDATA[
 		include $ext_info['path'].'/install.php';
 	]]></install>
 	<uninstall><![CDATA[
 		include $ext_info['path'].'/uninstall.php';
 	]]></uninstall>
+
 	<hooks>
 		<hook id="co_common"><![CDATA[
 			include $ext_info['path'].'/hooks/co_common.php';
@@ -62,6 +64,9 @@
 		]]></hook>
 		<hook id="co_modify_url_scheme"><![CDATA[
 			include $ext_info['path'].'/hooks/co_modify_url_scheme.php';
+		]]></hook>
+		<hook id="aex_section_manage_pre_ext_actions" priority="10"><![CDATA[
+			include $ext_info['path'].'/hooks/aex_section_manage_pre_ext_actions.php';
 		]]></hook>
 	</hooks>
 </extension>

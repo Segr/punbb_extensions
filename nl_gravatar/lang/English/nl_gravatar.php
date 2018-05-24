@@ -1,4 +1,5 @@
 <?php
+if (!defined('FORUM')) die();
  
 $lang_nl_gravatar = array(
 	'Allow Gravatars'		=>	'Allow Gravatars',
@@ -36,6 +37,7 @@ $lang_nl_gravatar = array(
 	'Rating - X' => 'X - may contain hardcore sexual imagery or extremely disturbing violence',
 	'Current avatar' => 'Your Gravatar',
 	'Delete avatar info' => 'Disable gravatar to stop displaying any avatar.',
+	'Go to settings'				=> 'Settings',
 );
 
 if ($forum_db->field_exists('users', 'gender')) {

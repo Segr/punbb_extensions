@@ -1,7 +1,7 @@
 <?php
 if (!defined('FORUM')) die();
 
-$nl_gravatar = 0;
+$nl_gravatar = ($user['avatar'] ? $user['nl_gravatar'] : 0);
 
 $query = array(
 	'UPDATE'	=> 'users',
