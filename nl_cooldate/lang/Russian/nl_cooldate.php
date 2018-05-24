@@ -1,5 +1,4 @@
 <?php
-
 if (!defined('FORUM')) die();
 
 $lang_nl_cooldate = array(
