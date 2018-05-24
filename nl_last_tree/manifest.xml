@@ -5,16 +5,17 @@
 	<version>0.11</version>
 	<description>Show last post like tree.</description>
 	<author>Segr</author>
-	<minversion>1.4.4</minversion>
+	<minversion>1.3</minversion>
 	<maxtestedon>1.4.4</maxtestedon>
 	
 	<install></install>
-	
 	<uninstall></uninstall>
-	
+
 	<hooks>
+		<hook id="co_common"><![CDATA[
+			include $ext_info['path'].'/hooks/co_common.php';
+		]]></hook>
 		<hook id="mi_new_action"><![CDATA[
-			$section = isset($_GET['section']) ? $_GET['section'] : null;
 			if ($section == 'last_tree') {
 				include $ext_info['path'].'/hooks/mi_new_action__last_tree.php';
 			}
