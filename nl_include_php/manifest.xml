@@ -2,99 +2,37 @@
 <extension engine="1.0">
 	<id>nl_include_php</id>
 	<title>[NL] Include PHP</title>
-	<version>0.32</version>
+	<version>0.33</version>
 	<description>Lets you place a custom PHP code.</description>
 	<author>Segr</author>
-	<minversion>1.3</minversion>
-	<maxtestedon>1.4.1</maxtestedon>
+	<minversion>1.4</minversion>
+	<maxtestedon>1.4.4</maxtestedon>
 	
-	<install> <![CDATA[
-		$new_config = array(
-			'o_nl_include_php_before_content'  => '',
-			'o_nl_include_php_after_content'   => '',
-			'o_nl_include_php_after_about'     => '',
-		);
-		foreach($new_config as $key => $value) {
-			if (!isset($forum_config[$key])) 	{
-				$query = array(
-					'INSERT'	=> 'conf_name, conf_value',
-					'INTO'		=> 'config',
-					'VALUES'	=> '\''.$key.'\', \''.$value.'\''
-				);
-				$forum_db->query_build($query) or error(__FILE__, __LINE__);
-			}
-		}
+	<install><![CDATA[
+		include $ext_info['path'].'/install.php';
 	]]></install>
-	
 	<uninstall><![CDATA[
-		$query = array(
-			'DELETE'	=> 'config',
-			'WHERE'		=> 'conf_name in (\'o_nl_include_php_before_content\',\'o_nl_include_php_after_content\',\'o_nl_include_php_after_about\')',
-		);
-		$forum_db->query_build($query) or error(__FILE__, __LINE__);
+		include $ext_info['path'].'/uninstall.php';
 	]]></uninstall>
 	
 	<hooks>
+		<hook id="co_common"><![CDATA[
+			include $ext_info['path'].'/hooks/co_common.php';
+		]]></hook>
 		<hook id="hd_head"><![CDATA[
-			if (!defined('FORUM_PARSER_LOADED'))
-				require FORUM_ROOT.'include/parser.php';
-			$forum_loader->add_css($ext_info['url'].'/css/'.$forum_user['style'].'/'.$ext_info['id'].'.css', array('type' => 'url', 'weight' => '90', 'media' => 'screen'));
+			include $ext_info['path'].'/hooks/hd_head.php';
 		]]></hook>
 		<hook id="hd_template_loaded"><![CDATA[
-			ob_start();
-				if (!empty($forum_config['o_nl_include_php_before_content'])) {
-					eval($forum_config['o_nl_include_php_before_content']);
-				}
-				$tpl_main = preg_replace('~(<body[^>]*>)~i', "\\1".ob_get_contents(), $tpl_main);
-			ob_end_clean();
-			ob_start();
-				if (!empty($forum_config['o_nl_include_php_after_content'])) {
-					eval($forum_config['o_nl_include_php_after_content']);
-				}
-				$tpl_main = str_replace('</body>', ob_get_contents().'</body>', $tpl_main);
-			ob_end_clean();
+			include $ext_info['path'].'/hooks/hd_template_loaded.php';
 		]]></hook>
 		<hook id="ft_about_end"><![CDATA[
-			ob_start();
-				if (!empty($forum_config['o_nl_include_php_after_about'])) {
-					eval($forum_config['o_nl_include_php_after_about']);
-				}
-				$nl_include_php_after_about = ob_get_contents();
-			ob_end_clean();
-			echo $nl_include_php_after_about;
+			include $ext_info['path'].'/hooks/ft_about_end.php';
 		]]></hook>
 		<hook id="aop_features_gzip_fieldset_end"><![CDATA[
-			if (file_exists($ext_info['path'].'/lang/'.$forum_user['language'].'/'.$ext_info['id'].'.php'))
-				include $ext_info['path'].'/lang/'.$forum_user['language'].'/'.$ext_info['id'].'.php';
-			else
-				include $ext_info['path'].'/lang/English/'.$ext_info['id'].'.php';
-			$forum_page['group_count'] = $forum_page['item_count'] = 0;
-			?>
-			<div class="content-head">
-				<h2 class="hn"><span><?php echo $lang_nl_include_php['title'] ?></span></h2>
-			</div>
-			<fieldset class="frm-group group<?php echo ++$forum_page['group_count'] ?>">
-				<legend class="group-legend"><strong><?php echo $lang_nl_include_php['title'] ?></strong></legend>
-				<div class="txt-set set<?php echo ++$forum_page['item_count'] ?>">
-					<div class="txt-box textarea">
-						<label for="fld<?php echo ++$forum_page['fld_count'] ?>"><span><?php echo $lang_nl_include_php['before_content'] ?></span></label>
-						<div class="txt-input"><span class="fld-input"><textarea id="fld<?php echo $forum_page['fld_count'] ?>" name="form[nl_include_php_before_content]" rows="10" cols="55"><?php echo forum_htmlencode($forum_config['o_nl_include_php_before_content']) ?></textarea></span></div>
-					</div>
-				</div>
-				<div class="txt-set set<?php echo ++$forum_page['item_count'] ?>">
-					<div class="txt-box textarea">
-						<label for="fld<?php echo ++$forum_page['fld_count'] ?>"><span><?php echo $lang_nl_include_php['after_content'] ?></span></label>
-						<div class="txt-input"><span class="fld-input"><textarea id="fld<?php echo $forum_page['fld_count'] ?>" name="form[nl_include_php_after_content]" rows="10" cols="55"><?php echo forum_htmlencode($forum_config['o_nl_include_php_after_content']) ?></textarea></span></div>
-					</div>
-				</div>
-				<div class="txt-set set<?php echo ++$forum_page['item_count'] ?>">
-					<div class="txt-box textarea">
-						<label for="fld<?php echo ++$forum_page['fld_count'] ?>"><span><?php echo $lang_nl_include_php['after_about'] ?></span></label>
-						<div class="txt-input"><span class="fld-input"><textarea id="fld<?php echo $forum_page['fld_count'] ?>" name="form[nl_include_php_after_about]" rows="10" cols="55"><?php echo forum_htmlencode($forum_config['o_nl_include_php_after_about']) ?></textarea></span></div>
-					</div>
-				</div>
-			</fieldset>
-			<?
+			include $ext_info['path'].'/hooks/aop_features_gzip_fieldset_end.php';
+		]]></hook>
+		<hook id="aex_section_manage_pre_ext_actions" priority="10"><![CDATA[
+			include $ext_info['path'].'/hooks/aex_section_manage_pre_ext_actions.php';
 		]]></hook>
 	</hooks>
 </extension>
