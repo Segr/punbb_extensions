@@ -13,3 +13,5 @@ if ($forum_db->field_exists('user', 'gender')) {
 	forum_config_add('o_nl_gravatar_default_image',  'extensions\/nl_gravatar\/images\/default_avatar.png');
 	forum_config_add('o_nl_gravatar_default_image2', 'extensions\/nl_gravatar\/images\/default_avatar.png');
 }
+
+$forum_db->add_field('users', 'nl_gravatar', 'TINYINT(1)', false, '1');

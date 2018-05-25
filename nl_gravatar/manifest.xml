@@ -4,7 +4,7 @@
 	<id>nl_gravatar</id>
 	<title>[NL] Gravatars</title>
 	<version>0.13</version>
-	<description>Adds a new profile section for users to link to their Gravatar. Configuration is on the Settings > Features page.</description>
+	<description>Adds a new profile section for users to link to their Gravatar.</description>
 	<author>Segr</author>
 	<minversion>1.4</minversion>
 	<maxtestedon>1.4.4</maxtestedon>
