@@ -10,3 +10,5 @@ forum_config_remove(array(
 	'o_nl_gravatar_default_image',
 	'o_nl_gravatar_default_image2',
 ));
+
+$forum_db->drop_field('users', 'nl_gravatar');

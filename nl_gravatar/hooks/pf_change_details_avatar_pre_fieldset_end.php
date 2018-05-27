@@ -19,7 +19,7 @@ if (!defined('FORUM')) die();
 	<div class="sf-set set<?php echo ++$forum_page['item_count'] ?>">
 		<div class="sf-box checkbox">
 			<span class="fld-input"><input type="checkbox" id="fld<?php echo ++$forum_page['fld_count'] ?>" name="nl_gravatar" value="1" <?php if ($user['nl_gravatar'] == 1) echo 'checked="checked" ' ?>/></span>
-			<label for="fld<?php echo $forum_page['fld_count'] ?>"><span><?php echo $lang_nl_gravatar['Use Gravatar'] ?></span> <?php echo $lang_nl_gravatar['Link To Your Universal Gravatar']; ?></label>
+			<label for="fld<?php echo $forum_page['fld_count'] ?>"><span><?php echo $lang_nl_gravatar['Use Gravatar'] ?></span> <?php echo $lang_nl_gravatar['Why Use Grawatar']; ?></label>
 		</div>
 	</div>
 

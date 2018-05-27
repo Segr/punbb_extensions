@@ -12,9 +12,27 @@ if (!defined('FORUM')) die();
 		</div>
 	</div>
 	<div class="sf-set set<?php echo ++$forum_page['item_count'] ?>">
+		<div class="sf-box checkbox">
+		<span class="fld-input"><input type="checkbox" id="fld<?php echo ++$forum_page['fld_count'] ?>" name="form[nl_gravatar_guests]" value="1"<?php if ($forum_config['o_nl_gravatar_guests'] == '1') echo ' checked="checked"' ?> /></span>
+		<label for="fld<?php echo $forum_page['fld_count'] ?>"><span><?php echo $lang_nl_gravatar['Guest Gravatars'] ?></span> <?php echo $lang_nl_gravatar['Allow Guests'] ?></label>
+		</div>
+	</div>
+	<div class="sf-set set<?php echo ++$forum_page['item_count'] ?>">
 		<div class="sf-box text">
 		<label for="fld<?php echo ++$forum_page['fld_count'] ?>"><span><?php echo $lang_nl_gravatar['Default Gravatar Width'] ?></span><small><?php echo $lang_nl_gravatar['Gravatar Width'] ?></small></label><br />
 		<span class="fld-input"><input type="text" id="fld<?php echo $forum_page['fld_count'] ?>" name="form[nl_gravatar_width]" size="6" maxlength="6" value="<?php echo forum_htmlencode($forum_config['o_nl_gravatar_width']) ?>" /></span>
+		</div>
+	</div>
+	<div class="sf-set set<?php echo ++$forum_page['item_count'] ?>">
+		<div class="sf-box select">
+			<label for="fld<?php echo ++$forum_page['fld_count'] ?>"><span><?php echo $lang_nl_gravatar['Gravatar Rating'] ?></span><small><?php echo $lang_nl_gravatar['Why Gravatar Rating'] ?></small></label><br />
+			<span class="fld-input"><select id="fld<?php echo $forum_page['fld_count'] ?>" name="form[nl_gravatar_rating]">
+				<option value="all"<?php if ($forum_config['o_nl_gravatar_rating'] == 'all') echo ' selected="selected"' ?>><?php echo $lang_nl_gravatar['Rating - Not Used']; ?></option>
+				<option value="G"<?php if ($forum_config['o_nl_gravatar_rating'] == 'G') echo ' selected="selected"' ?>><?php echo $lang_nl_gravatar['Rating - G']; ?></option>
+				<option value="PG"<?php if ($forum_config['o_nl_gravatar_rating'] == 'PG') echo ' selected="selected"' ?>><?php echo $lang_nl_gravatar['Rating - PG']; ?></option>
+				<option value="R"<?php if ($forum_config['o_nl_gravatar_rating'] == 'R') echo ' selected="selected"' ?>><?php echo $lang_nl_gravatar['Rating - R']; ?></option>
+				<option value="X"<?php if ($forum_config['o_nl_gravatar_rating'] == 'X') echo ' selected="selected"' ?>><?php echo $lang_nl_gravatar['Rating - X']; ?></option>
+			</select></span>
 		</div>
 	</div>
 	<div class="sf-set set<?php echo ++$forum_page['item_count'] ?>">
@@ -47,21 +65,3 @@ if (!defined('FORUM')) die();
 		</div>
 	</div>
 	<?php } ?>
-	<div class="sf-set set<?php echo ++$forum_page['item_count'] ?>">
-		<div class="sf-box checkbox">
-		<span class="fld-input"><input type="checkbox" id="fld<?php echo ++$forum_page['fld_count'] ?>" name="form[nl_gravatar_guests]" value="1"<?php if ($forum_config['o_nl_gravatar_guests'] == '1') echo ' checked="checked"' ?> /></span>
-		<label for="fld<?php echo $forum_page['fld_count'] ?>"><span><?php echo $lang_nl_gravatar['Guest Gravatars'] ?></span> <?php echo $lang_nl_gravatar['Allow Guests'] ?></label>
-		</div>
-	</div>
-	<div class="sf-set set<?php echo ++$forum_page['item_count'] ?>">
-		<div class="sf-box select">
-			<label for="fld<?php echo ++$forum_page['fld_count'] ?>"><span><?php echo $lang_nl_gravatar['Gravatar Rating'] ?></span><small><?php echo $lang_nl_gravatar['Why Gravatar Rating'] ?></small></label><br />
-			<span class="fld-input"><select id="fld<?php echo $forum_page['fld_count'] ?>" name="form[nl_gravatar_rating]">
-				<option value="all"<?php if ($forum_config['o_nl_gravatar_rating'] == 'all') echo ' selected="selected"' ?>><?php echo $lang_nl_gravatar['Rating - Not Used']; ?></option>
-				<option value="G"<?php if ($forum_config['o_nl_gravatar_rating'] == 'G') echo ' selected="selected"' ?>><?php echo $lang_nl_gravatar['Rating - G']; ?></option>
-				<option value="PG"<?php if ($forum_config['o_nl_gravatar_rating'] == 'PG') echo ' selected="selected"' ?>><?php echo $lang_nl_gravatar['Rating - PG']; ?></option>
-				<option value="R"<?php if ($forum_config['o_nl_gravatar_rating'] == 'R') echo ' selected="selected"' ?>><?php echo $lang_nl_gravatar['Rating - R']; ?></option>
-				<option value="X"<?php if ($forum_config['o_nl_gravatar_rating'] == 'X') echo ' selected="selected"' ?>><?php echo $lang_nl_gravatar['Rating - X']; ?></option>
-			</select></span>
-		</div>
-	</div>
