@@ -4,11 +4,11 @@ global $forum_db;
 
 $gr_site = 'http://www.gravatar.com';
 
-if ($avatar_markup=='') {
+if ($avatar_markup=='' && $user_id) {
 	$gr_query = array(
 		'SELECT' => 'email, nl_gravatar',
 		'FROM'   => 'users',
-		'WHERE'  => 'id='.$user_id.'',
+		'WHERE'  => 'id=\''.$user_id.'\'',
 	);
 	if ($forum_db->field_exists('users', 'gender')) {
 		$gr_query['SELECT'] .= ', gender';
