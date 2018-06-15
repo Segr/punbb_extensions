@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE extension SYSTEM "ext-1.0.dtd">
+
+<extension engine="1.0">
+	<id>pan_last_post_info</id>
+	<title>Pan Last Post Info</title>
+	<version>0.9</version>
+	<description>It shows on the main page of the forum name of the latest topics, date and avatar poster.</description>
+	<author>PunBB.INFO</author>
+	<minversion>1.4.2</minversion>
+	<maxtestedon>1.4.5</maxtestedon>
+
+	<install><![CDATA[
+	]]></install>
+
+	<uninstall><![CDATA[
+	]]></uninstall>
+
+	<hooks>
+
+		<hook id="in_start, vf_start"><![CDATA[
+$forum_config['o_show_dot'] = '0';
+
+if (!function_exists('pan_get_avatar'))
+	require $ext_info['path'].'/functions.php';
+
+if (file_exists($ext_info['path'].'/lang/'.$forum_user['language'].'/'.$ext_info['id'].'.php'))
+	require $ext_info['path'].'/lang/'.$forum_user['language'].'/'.$ext_info['id'].'.php';
+else
+	require $ext_info['path'].'/lang/English/'.$ext_info['id'].'.php';
+
+if (file_exists($ext_info['path'].'/style/'.$forum_user['style'].'/'.$ext_info['id'].'.css')){
+	$forum_loader->add_css($ext_info['url'].'/style/'.$forum_user['style'].'/'.$ext_info['id'].'.css');
+} else {
+	$forum_loader->add_css($ext_info['url'].'/style/Oxygen/'.$ext_info['id'].'.css');
+}
+		]]></hook>
+
+		<hook id="in_qr_get_cats_and_forums"><![CDATA[
+$query['SELECT'] .= ', t.id AS tid, t.subject, u.id AS poster_id, u.avatar';
+$query['JOINS'][] = array(
+	'LEFT JOIN' => 'posts AS p',
+	'ON'		=> 'p.id=f.last_post_id'
+);
+$query['JOINS'][] = array(
+	'LEFT JOIN' => 'users AS u',
+	'ON'		=> 'u.id=p.poster_id'
+);
+$query['JOINS'][] = array(
+	'LEFT JOIN' => 'topics AS t',
+	'ON'		=> 't.last_post_id=f.last_post_id'
+);
+		]]></hook>
+
+		<hook id="in_normal_row_pre_display"><![CDATA[
+require $ext_info['path'].'/hooks/in_normal_row_pre_display.php';
+		]]></hook>
+
+		<hook id="vf_qr_get_topics"><![CDATA[
+$query['SELECT'] .= ', u.id AS poster_id, u.avatar, t.last_post_id';
+$query['JOINS'][] = array(
+	'LEFT JOIN' => 'posts AS p',
+	'ON'		=> '(p.id = t.last_post_id)'
+);
+$query['JOINS'][] = array(
+	'LEFT JOIN' => 'users AS u',
+	'ON'		=> '(u.id = p.poster_id)'
+);
+		]]></hook>
+
+		<hook id="vf_row_pre_item_subject_merge"><![CDATA[
+if ($cur_topic['moved_to'] == null) {
+	$avatar = '<a href="'.forum_link($forum_url['user'], $cur_topic['poster_id']).'"><img src="'.pan_get_avatar($cur_topic['poster_id'], $cur_topic['avatar']).'" class="list-avatar" /></a>';
+
+	$forum_page['item_body']['info']['lastpost'] =  str_replace('<span class="label">'.$lang_forum['Last post'].'</span>', ''."\n".'<div class="ul-lastpost"><span class="ulabel">'.$avatar.'</span></div>', $forum_page['item_body']['info']['lastpost']);
+	
+	$forum_page['item_body']['info']['lastpost'] =  str_replace('<cite>'.sprintf($lang_forum['by poster'], forum_htmlencode($cur_topic['last_poster'])).'</cite>', '<cite><a href="'.forum_link($forum_url['user'], $cur_topic['poster_id']).'">'.sprintf($lang_forum['by poster'], forum_htmlencode($cur_topic['last_poster'])).'</a></cite>', $forum_page['item_body']['info']['lastpost']);
+}
+		]]></hook>
+
+		<hook id="pan_subforums_vf_main_output_start_get_subforums"><![CDATA[
+$query['SELECT'] .= ', u.id AS poster_id, u.avatar';
+$query['JOINS'][] = array(
+	'LEFT JOIN' => 'posts AS p',
+	'ON'		=> 'p.id=f.last_post_id');
+$query['JOINS'][] = array(
+	'LEFT JOIN' => 'users AS u',
+	'ON'		=> 'u.id=p.poster_id');
+		]]></hook>
+
+		<hook id="pan_subforums_vf_main_output_start_pre_display_lastpost"><![CDATA[
+if ($cur_forum['last_post'] != '') {
+	$avatar = '<img src="'.pan_get_avatar($cur_forum['poster_id'], $cur_forum['avatar']).'" class="list-avatar" />';
+
+	$forum_page['item_body']['info']['lastpost'] = '<li class="info-lastpost">'."\n".'<div class="ul-lastpost"><span class="ulabel">'.$avatar.'</span></div><strong style="padding:0;"><a href="'.forum_link($forum_url['post'], $cur_forum['last_post_id']).'">'.format_time($cur_forum['last_post']).'</a></strong> <cite>'.sprintf($lang_index['Last poster'], forum_htmlencode($cur_forum['last_poster'])).'</cite></li>';
+} else {
+	$forum_page['item_body']['info']['lastpost'] = '<li class="info-lastpost"><strong>'.$lang_common['Never'].'</strong></li>';
+}
+		]]></hook>
+
+		<hook id="pan_subforums_in_normal_row_pre_item_title_merge_new"><![CDATA[
+$cur_forum['subject'] = $pf_info['subject'];
+$cur_forum['tid'] = $pf_info['tid'];
+$cur_forum['poster_id'] = $pf_info['poster_id'];
+$cur_forum['avatar'] = $pf_info['avatar'];
+		]]></hook>
+
+		<hook id="pan_subforums_in_main_output_start_get_subforums"><![CDATA[
+$query['SELECT'] .= ', t.id AS tid, t.subject, p.poster_id, u.avatar';
+$query['JOINS'][] = array(
+	'LEFT JOIN'		=> 'topics AS t',
+	'ON'			=> 't.forum_id=f.id'
+);
+$query['JOINS'][] = array(
+	'LEFT JOIN'		=> 'posts AS p',
+	'ON'			=> 'p.topic_id=t.id'
+);
+$query['JOINS'][] = array(
+	'LEFT JOIN'		=> 'users AS u',
+	'ON'			=> 'u.id=p.poster_id'
+);
+		]]></hook>
+		
+	</hooks>
+</extension>

@@ -1,0 +1,37 @@
+/*INDEX_PAGE*/
+li.info-lastpost img{
+	max-height: 32px;
+	max-width: 32px;
+	float: left;
+	border-radius: 5px;
+	margin: 0 5px 0 0;
+	border: 1px solid #dbe6f7;
+	box-shadow: 1px 1px 1px rgba(188, 199, 206, 0.47);
+}
+li.info-lastpost .last-post-title{
+	font-size: 11px;
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	padding-left: 0;
+}
+li.info-lastpost .last-post-msg{
+	font-size: 10px;
+	display: inline;
+	padding-left: 0;
+}
+li.info-lastpost .last-post-user{
+	font-size: 10px;
+/*	font-weight: bold;*/
+	display: inline;
+	padding: 0;
+}
+/*VIEWFORUM_PAGE*/
+.main-content .main-item .info-lastpost cite{
+	width: 50%;
+	padding-left: 0;
+}
+.forum-views li.info-lastpost strong {
+	padding: 0;
+}
+
