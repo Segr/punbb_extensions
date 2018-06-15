@@ -4,7 +4,7 @@
 <extension engine="1.0">
 	<id>pan_last_post_info</id>
 	<title>Pan Last Post Info</title>
-	<version>0.9</version>
+	<version>0.91</version>
 	<description>It shows on the main page of the forum name of the latest topics, date and avatar poster.</description>
 	<author>PunBB.INFO</author>
 	<minversion>1.4.2</minversion>

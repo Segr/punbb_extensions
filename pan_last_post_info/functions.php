@@ -1,33 +1,25 @@
 <?php 
 
-function pan_get_avatar($user_id, $user_avatar)
+function pan_get_avatar($user_id, $user_avatar, $avatar_width, $avatar_height)
 {
-	global $base_url, $forum_config, $forum_user, $ext_info;
+	global $forum_user, $ext_info;
 
-	switch ($user_avatar)
-	{
-	case FORUM_AVATAR_GIF:
-		$avatar_filename = $user_id.'.gif';
-		break;
-
-	case FORUM_AVATAR_JPG:
-		$avatar_filename = $user_id.'.jpg';
-		break;
-
-	case FORUM_AVATAR_PNG:
-		$avatar_filename = $user_id.'.png';
-		break;
-	}
-
-	if (!isset($avatar_filename))
-	{
-		if(is_dir($ext_info['url'].'/style/'.$forum_user['style'].'/'))
-			$user_style = $forum_user['style'];
+	if (empty($avatar_width)) $avatar_width = 32;
+	if (empty($avatar_height)) $avatar_height = 32;
+	
+	$avatar_markup = generate_avatar_markup($user_id, $user_avatar, $avatar_width, $avatar_height);
+	
+	if (strpos($avatar_markup, 'class="')!==false)
+		$avatar_markup = str_replace('class="', 'class="list-avatar ', $avatar_markup);
 		else
-			$user_style = 'Oxygen';
+		$avatar_markup = str_replace('<img', '<img class="list-avatar"', $avatar_markup);
 
-		return $ext_info['url'].'/style/'.$user_style.'/default_avatar.jpg';
-	} else {
-		return $base_url .'/'. $forum_config['o_avatars_dir'] .'/'.$avatar_filename;
+	if (empty($avatar_markup)) {
+		if (is_file($ext_info['path'].'/style/'.$forum_user['style'].'/default_avatar.jpg'))
+			return '<img class="list-avatar" src="'.$ext_info['url'].'/style/'.$forum_user['style'].'/default_avatar.jpg" />';
+		else if(is_file($ext_info['path'].'/style/Oxygen/default_avatar.jpg'))
+			return '<img class="list-avatar" src="'.$ext_info['url'].'/style/Oxygen/default_avatar.jpg" />';
 	}
+	
+	return $avatar_markup;
 }

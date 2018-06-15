@@ -1,18 +1,18 @@
 <?php 
-
 if (!defined('FORUM')) die();
 
 if ($cur_forum['last_post'] != '')
 {
+	$miniature = pan_get_avatar($cur_forum['poster_id'], $cur_forum['avatar'], $cur_forum['avatar_width'], $cur_forum['avatar_height']);
+	
 	if ($forum_user['g_view_users'] == '1' && $cur_forum['poster_id'] > 1)
 	{
-		$miniature = '<a title="'.sprintf($lang_pan_last_post_info['last_post_user'], forum_htmlencode($cur_forum['last_poster'])).'" href="'.forum_link($forum_url['user'], $cur_forum['poster_id']).'" target="_blank"><img src="'. pan_get_avatar($cur_forum['poster_id'], $cur_forum['avatar']) .'" class="list-avatar" /></a>';
+		$miniature = '<a title="'.sprintf($lang_pan_last_post_info['last_post_user'], forum_htmlencode($cur_forum['last_poster'])).'" href="'.forum_link($forum_url['user'], $cur_forum['poster_id']).'" target="_blank">'.$miniature.'</a>';
 		$last_post_user = '<span class="last-post-user"><a title="'.sprintf($lang_pan_last_post_info['last_post_user'], forum_htmlencode($cur_forum['last_poster'])).'" href="'.forum_link($forum_url['user'], $cur_forum['poster_id']).'" target="_blank">'.sprintf($lang_index['Last poster'], forum_htmlencode($cur_forum['last_poster'])).':</a></span>';
 		
 	}
 	else
 	{
-		$miniature = '<img src="'. pan_get_avatar($cur_forum['poster_id'], $cur_forum['avatar']) .'" class="list-avatar" />';
 		$last_post_user = '<span class="last-post-user">'.sprintf($lang_index['Last poster'], forum_htmlencode($cur_forum['last_poster'])).':</span>';
 	}
 	
@@ -22,4 +22,3 @@ if ($cur_forum['last_post'] != '')
 	
 	$forum_page['item_body']['info']['lastpost'] = '<li class="info-lastpost"><strong>'.$lang_common['Never'].'</strong></li>';
 }
-
