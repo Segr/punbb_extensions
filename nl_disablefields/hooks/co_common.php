@@ -3,21 +3,16 @@ if (!defined('FORUM')) die();
 
 // lang
 global $lang_nl_disablefields;
-if (!isset($lang_nl_disablefields)) {
-	if (file_exists($ext_info['path'].'/lang/'.$forum_user['language'].'/'.$ext_info['id'].'.php'))
+if (file_exists($ext_info['path'].'/lang/'.$forum_user['language'].'/'.$ext_info['id'].'.php'))
 		include $ext_info['path'].'/lang/'.$forum_user['language'].'/'.$ext_info['id'].'.php';
-	else
+else
 		include $ext_info['path'].'/lang/English/'.$ext_info['id'].'.php';
 
-}
-
 global $lang_profile;
-if (!isset($lang_profile)) {
-	if (file_exists(FORUM_ROOT.'/lang/'.$forum_user['language'].'/profile.php'))
+if (file_exists(FORUM_ROOT.'/lang/'.$forum_user['language'].'/profile.php'))
 		include FORUM_ROOT.'/lang/'.$forum_user['language'].'/profile.php';
-	else
+else
 		include FORUM_ROOT.'/lang/English/profile.php';
-}
 
 $nl_disablefields_options = array(
 	'nl_disablefields_url'       => $lang_profile['Website'],

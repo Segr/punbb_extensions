@@ -3,7 +3,8 @@
 <extension engine="1.0">
 	<id>nl_userlist_avatar</id>
 	<title>[NL] Userlist Avatar</title>
-	<version>0.11</version>
+	<version>
+0.12</version>
 	<description>Adds avatar to the userlist.</description>
 	<author>Segr</author>
 	<minversion>1.4</minversion>

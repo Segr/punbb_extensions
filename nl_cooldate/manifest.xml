@@ -2,7 +2,7 @@
 <extension engine="1.0">
 	<id>nl_cooldate</id>
 	<title>[NL] Cool Date</title>
-	<version>0.11</version>
+	<version>0.12</version>
 	<description>Show cool date info.</description>
 	<author>Segr</author>
 	<minversion>1.4</minversion>
