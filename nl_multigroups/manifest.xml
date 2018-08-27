@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE extension SYSTEM "ext-1.0.dtd">
+
+<extension engine="1.0"> 
+	<id>nl_multigroups</id>
+	<title>[NL] Multi Groups</title>
+	<version>0.13</version>
+	<description>Multi Groups for Users</description>
+	<author>Segr (original by Xakker)</author>
+	<minversion>1.4.2</minversion>
+	<maxtestedon>1.4.4</maxtestedon>
+
+	<install><![CDATA[
+		include $ext_info['path'].'/install.php';
+	]]></install>
+	<uninstall><![CDATA[
+		include $ext_info['path'].'/uninstall.php';
+	]]></uninstall>
+
+	<hooks>
+		<hook id="es_essentials"><![CDATA[
+			include $ext_info['path'].'/hooks/es_essentials.php';
+		]]></hook>
+		<hook id="co_common"><![CDATA[
+			include $ext_info['path'].'/hooks/co_common.php';
+		]]></hook>
+
+		<hook id="in_qr_get_cats_and_forums,mi_forum_subscribe_qr_forum_exists,mi_forum_unsubscribe_qr_check_subscribed,mi_markforumread_qr_get_forum_info,se_qr_get_cats_and_forums,vf_qr_get_forum_info,po_qr_get_forum_info,mr_qr_get_forum_data,mr_move_topics_qr_get_target_forums,nl_last_tree_get_forum_info,move_post_qr_get_forums_can_move_to,ex_qr_get_topic_data,ex_qr_get_topics,mi_subscribe_qr_topic_exists,po_qr_get_topic_forum_info,vt_qr_get_topic_info,fancy_simtopics_get_query,ed_qr_get_post_info,dl_qr_get_post_info,sf_fn_create_search_cache_qr_get_hits,sf_fn_generate_action_search_query_qr_get_new,sf_fn_generate_action_search_query_qr_get_recent,sf_fn_generate_action_search_query_qr_get_user_posts,sf_fn_generate_action_search_query_qr_get_user_topics,sf_fn_generate_action_search_query_qr_get_subscriptions,sf_fn_generate_action_search_query_qr_get_forum_subscriptions,sf_fn_generate_action_search_query_qr_get_unanswered"><![CDATA[
+			global $forum_user;
+			$query = multigroups_updatequery_forumpermission($query, $forum_user['g_multi']);
+		]]></hook>
+
+		<hook id="fn_send_subscriptions_qr_get_users_to_notify,fn_send_forum_subscriptions_qr_get_users_to_notify"><![CDATA[
+			$query = multigroups_updatequery_forumpermission($query, 1);
+		]]></hook>
+		<hook id="mi_report_qr_get_topic_data"><![CDATA[
+			global $forum_user;
+			$query['JOINS'][] = array(
+				'LEFT JOIN'		=> 'forum_perms AS fp',
+				'ON'			=> '(fp.forum_id=t.forum_id AND fp.group_id='.$forum_user['g_id'].')'
+				);
+			$query['WHERE'] = (isset($query['WHERE']) ? $query['WHERE'].' AND ':'') . '(fp.read_forum IS NULL OR fp.read_forum=1)';
+			$query = multigroups_updatequery_forumpermission($query, $forum_user['g_multi']);
+		]]></hook>
+
+		<hook id="agr_qr_get_allowed_base_groups,aus_change_group_qr_get_groups,agr_qr_get_groups,pf_change_details_admin_qr_get_groups,ul_qr_get_groups"><![CDATA[
+			$query = multigroups_updatequery_list($query, 1);
+		]]></hook>
+		<hook id="aus_search_form_qr_get_groups,agr_qr_get_group_list"><![CDATA[
+			$query = multigroups_updatequery_list($query, 0);
+		]]></hook>
+
+		<hook id="pf_change_details_admin_pre_group_membership_submit"><![CDATA[
+			require $ext_info['path'].'/hooks/pf_change_details_admin_pre_group_membership_submit.php';
+		]]></hook>
+		<hook id="pf_change_group_qr_update_group"><![CDATA[
+			require $ext_info['path'].'/hooks/pf_change_group_qr_update_group.php';
+		]]></hook>
+		<hook id="agr_add_edit_group_pre_basic_details_fieldset_end"><![CDATA[
+			require $ext_info['path'].'/hooks/agr_add_edit_group_pre_basic_details_fieldset_end.php';
+		]]></hook>
+		<hook id="agr_add_end_qr_add_group"><![CDATA[
+			require $ext_info['path'].'/hooks/agr_add_end_qr_add_group.php';
+		]]></hook>
+		<hook id="agr_edit_end_qr_update_group"><![CDATA[
+			require $ext_info['path'].'/hooks/agr_edit_end_qr_update_group.php';
+		]]></hook>
+		<hook id="aus_find_user_qr_count_find_users"><![CDATA[
+			require $ext_info['path'].'/hooks/aus_find_user_qr_count_find_users.php';
+		]]></hook>
+		<hook id="aus_find_user_output_start"><![CDATA[
+			require $ext_info['path'].'/hooks/aus_find_user_output_start.php';
+		]]></hook>
+		<hook id="pf_change_details_admin_pre_header_load"><![CDATA[
+			require $ext_info['path'].'/hooks/pf_change_details_admin_pre_header_load.php';
+		]]></hook>
+		<hook id="afo_save_forum_pre_perms_compare"><![CDATA[
+			require $ext_info['path'].'/hooks/afo_save_forum_pre_perms_compare.php';
+		]]></hook>
+		<hook id="ft_about_pre_quickjump"><![CDATA[
+			require $ext_info['path'].'/hooks/ft_about_pre_quickjump.php';
+		]]></hook>
+	</hooks> 
+</extension>
