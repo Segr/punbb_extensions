@@ -1,6 +1,8 @@
 <?php
 if (!defined('FORUM')) die();
 
+global $lang_nl_last_tree;
+
 $new_visit_links = array();
 foreach ($visit_links as $k=>$v) {
 	if ($k==='recent') {

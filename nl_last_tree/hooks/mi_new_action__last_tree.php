@@ -3,6 +3,9 @@ if (!defined('FORUM')) die();
 
 $tpl_out = '';
 
+if (!$forum_user['is_guest'])
+	$tracked_topics = get_tracked_topics();
+
 // 
 $query = array(
 	'SELECT'	=> 'f.id, f.forum_name',
@@ -15,7 +18,7 @@ $query = array(
 	),
 	'WHERE'		=> '(f.redirect_url IS NULL OR f.redirect_url="") AND (fp.read_forum IS NULL OR fp.read_forum=1)'
 );
-($hook = get_hook('vf_qr_get_forum_info')) ? eval($hook) : null;
+($hook = get_hook('nl_last_tree_get_forum_info')) ? eval($hook) : null;
 $result = $forum_db->query_build($query) or error(__FILE__, __LINE__);
 $canreadforums = array();
 while ($row = $forum_db->fetch_assoc($result)) {
@@ -39,18 +42,18 @@ $forum_page['start_from'] = $forum_user['disp_topics'] * ($forum_page['page'] - 
 $forum_page['finish_at'] = min(($forum_page['start_from'] + $forum_user['disp_topics']), ($num_topics));
 $forum_page['items_info'] = generate_items_info($lang_nl_last_tree['Message tree page'], ($forum_page['start_from'] + 1), $num_topics);
 
-($hook = get_hook('vf_modify_page_details')) ? eval($hook) : null;
+($hook = get_hook('nl_last_tree_modify_page_details')) ? eval($hook) : null;
 
 // Navigation links for header and page numbering for title/meta description
 if ($forum_page['page'] < $forum_page['num_pages'])
 {
-	$forum_page['nav']['last'] = '<link rel="last" href="'.forum_sublink($forum_url['last_tree'], $forum_url['page'], $forum_page['num_pages'], array($id, sef_friendly($cur_forum['forum_name']))).'" title="'.$lang_common['Page'].' '.$forum_page['num_pages'].'" />';
-	$forum_page['nav']['next'] = '<link rel="next" href="'.forum_sublink($forum_url['last_tree'], $forum_url['page'], ($forum_page['page'] + 1), array($id, sef_friendly($cur_forum['forum_name']))).'" title="'.$lang_common['Page'].' '.($forum_page['page'] + 1).'" />';
+	$forum_page['nav']['last'] = '<link rel="last" href="'.forum_sublink($forum_url['last_tree'], $forum_url['page'], $forum_page['num_pages']).'" title="'.$lang_common['Page'].' '.$forum_page['num_pages'].'" />';
+	$forum_page['nav']['next'] = '<link rel="next" href="'.forum_sublink($forum_url['last_tree'], $forum_url['page'], ($forum_page['page'] + 1)).'" title="'.$lang_common['Page'].' '.($forum_page['page'] + 1).'" />';
 }
 if ($forum_page['page'] > 1)
 {
-	$forum_page['nav']['prev'] = '<link rel="prev" href="'.forum_sublink($forum_url['last_tree'], $forum_url['page'], ($forum_page['page'] - 1), array($id, sef_friendly($cur_forum['forum_name']))).'" title="'.$lang_common['Page'].' '.($forum_page['page'] - 1).'" />';
-	$forum_page['nav']['first'] = '<link rel="first" href="'.forum_link($forum_url['last_tree'], array($id, sef_friendly($cur_forum['forum_name']))).'" title="'.$lang_common['Page'].' 1" />';
+	$forum_page['nav']['prev'] = '<link rel="prev" href="'.forum_sublink($forum_url['last_tree'], $forum_url['page'], ($forum_page['page'] - 1)).'" title="'.$lang_common['Page'].' '.($forum_page['page'] - 1).'" />';
+	$forum_page['nav']['first'] = '<link rel="first" href="'.forum_link($forum_url['last_tree']).'" title="'.$lang_common['Page'].' 1" />';
 }	
 
 $query = array(
@@ -79,7 +82,7 @@ $query = array(
 	'LIMIT'		=> $forum_page['start_from'].', '.$forum_user['disp_topics'],
 );
 
-($hook = get_hook('vt_qr_get_topics_id')) ? eval($hook) : null;
+($hook = get_hook('nl_last_tree_get_topics_id')) ? eval($hook) : null;
 $result = $forum_db->query_build($query) or error(__FILE__, __LINE__);
 
 $topics = $topics = array();
@@ -88,6 +91,12 @@ while ($row = $forum_db->fetch_assoc($result)) {
 }	
 
 foreach ($topics as $topic_id=>$topic) {
+	$last_post = time(); //$cur_set['last_post']
+	$isnew_topic = 
+		!$forum_user['is_guest']
+		&& $topic['last_post'] > $forum_user['last_visit']
+		&& (!isset($tracked_topics['topics'][$topic['id']]) || $tracked_topics['topics'][$topic['id']] < $last_post)
+		&& (!isset($tracked_topics['forums'][$topic['forum_id']]) || $tracked_topics['forums'][$topic['forum_id']] < $last_post);
 	$tpl_line = 
 		'<a class="forum" href="'.forum_link($forum_url['forum'], array($topic['forum_id'], sef_friendly($topic['forum_name']))).'">'.implode(' :: ', array($topic['cat_name'], $topic['forum_name'])).'</a>'.
 		'<a class="topic" href="'.forum_link($forum_url['topic'], array($topic['id'], sef_friendly($topic['subject']))).'">'.$topic['subject'].'</a>'.
@@ -127,7 +136,7 @@ foreach ($topics as $topic_id=>$topic) {
 		$tpl_line .= '<ul class="latest">'.implode('', $tpl_posts).'</ul>';	
 	}
 		
-	$tpl_topics[] = '<li'.($topic['last_post']>$forum_user['last_visit']?' class="new"':'').'>'.$tpl_line.'</li>';	
+	$tpl_topics[] = '<li'.($isnew_topic?' class="new"':'').'>'.$tpl_line.'</li>';	
 }
 $tpl_out .= '<ul class="tree">'.implode('', $tpl_topics).'</div>';
 
