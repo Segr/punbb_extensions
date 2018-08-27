@@ -57,7 +57,7 @@ if (!defined('FORUM')) die();
 		<span class="fld-input"><input type="text" id="fld<?php echo $forum_page['fld_count'] ?>" size="80%" name="form[nl_gravatar_default_image]" value="<?php echo forum_htmlencode($forum_config['o_nl_gravatar_default_image']) ?>" /></span>
 		</div>
 	</div>
-	<?php if ($forum_db->field_exists('users', 'gender')) { ?>
+	<?php if (NL_GRAVATAR_USER_HAS_GENDER) { ?>
 	<div class="sf-set set<?php echo ++$forum_page['item_count'] ?>">
 		<div class="sf-box text">
 		<label for="fld<?php echo ++$forum_page['fld_count'] ?>"><span><?php echo $lang_nl_gravatar['Default Image2'] ?></span><small><?php echo $lang_nl_gravatar['Why Default Image2'] ?></small></label><br />

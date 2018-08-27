@@ -31,7 +31,7 @@ if ($cur_post['poster_id']==1 && !empty($gr_email)){
 	}
 	if (!empty($gr_url)) {
 		$avatar_markup = '<img src="'.$gr_url.'" width="'.$gr_width.'" height="'.$gr_width.'" alt=" " />';
-		$gravatar_splice = array('avatar'=>'<li class="useravatar">'.$gravatar_markup.'</li>');
+		$gravatar_splice = array('avatar'=>'<li class="useravatar">'.$avatar_markup.'</li>');
 		unset($forum_page['author_ident']['avatar']);
 		array_splice($forum_page['author_ident'], 1, 0, $gravatar_splice);
 	}

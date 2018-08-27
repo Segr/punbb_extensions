@@ -40,7 +40,7 @@ $lang_nl_gravatar = array(
 	'Go to settings' =>                   'Settings',
 );
 
-if ($forum_db->field_exists('users', 'gender')) {
+if (NL_GRAVATAR_USER_HAS_GENDER) {
 	$lang_nl_gravatar['Default Image2'] =     'Default Female Image';
 	$lang_nl_gravatar['Why Default Image2'] = 'Картинка по умолчанию для девочек, если граватар отсутствует';
 }

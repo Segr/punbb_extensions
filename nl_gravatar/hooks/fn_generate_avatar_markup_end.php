@@ -10,7 +10,7 @@ if ($avatar_markup=='' && $user_id) {
 		'FROM'   => 'users',
 		'WHERE'  => 'id=\''.$user_id.'\'',
 	);
-	if ($forum_db->field_exists('users', 'gender')) {
+	if (NL_GRAVATAR_USER_HAS_GENDER) {
 		$gr_query['SELECT'] .= ', gender';
 	}
 	$gr_result = $forum_db->query_build($gr_query) or error(__FILE__, __LINE__);
