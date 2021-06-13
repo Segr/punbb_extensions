@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE extension SYSTEM "ext-1.0.dtd">
+
+<extension engine="1.0">
+	<id>nl_nobot</id>
+	<title>[NL] noBot</title>
+	<version>0.2.1</version>
+	<description>reCAPTCHA, HoneyPot and others</description>
+	<author>Segr (original PanBB.Ru created the idea Nihi1ist)</author>
+	<minversion>1.4.2</minversion>
+	<maxtestedon>1.4.5</maxtestedon>
+
+	<install><![CDATA[
+		include $ext_info['path'].'/install.php';
+	]]></install>
+	<uninstall><![CDATA[
+		include $ext_info['path'].'/uninstall.php';
+	]]></uninstall>
+	
+	<hooks>
+		<hook id="co_common"><![CDATA[
+			include $ext_info['path'].'/hooks/co_common.php';
+		]]></hook>
+		<hook id="hd_head"><![CDATA[
+			include $ext_info['path'].'/hooks/hd_head.php';
+		]]></hook>
+		<hook id="aop_features_gzip_fieldset_end"><![CDATA[
+			include $ext_info['path'].'/hooks/aop_features_gzip_fieldset_end.php';
+		]]></hook>
+		<hook id="rg_register_form_submitted"><![CDATA[
+			include $ext_info['path'].'/hooks/rg_register_form_submitted.php';
+		]]></hook>
+		<hook id="rg_register_pre_group_end"><![CDATA[
+			include $ext_info['path'].'/hooks/rg_register_pre_group_end.php';
+		]]></hook>
+		<hook id="aex_section_manage_pre_ext_actions" priority="10"><![CDATA[
+			include $ext_info['path'].'/hooks/aex_section_manage_pre_ext_actions.php';
+		]]></hook>
+	</hooks>
+</extension>
+
