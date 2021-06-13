@@ -2,8 +2,7 @@
 <extension engine="1.0">
 	<id>nl_last_tree</id>
 	<title>[NL] Last Tree</title>
-	<version>
-0.13</version>
+	<version>0.14</version>
 	<description>Show last post like tree.</description>
 	<author>Segr</author>
 	<minversion>1.3</minversion>

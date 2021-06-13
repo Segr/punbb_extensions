@@ -73,7 +73,7 @@ $query = array(
 			'ON'			=> 'p.id=t.first_post_id'
 		),
 		array(
-			'INNER JOIN'	=> 'users AS u',
+			'LEFT JOIN'	=> 'users AS u',
 			'ON'			=> 'u.id=p.poster_id'
 		),
 	),
@@ -90,6 +90,7 @@ while ($row = $forum_db->fetch_assoc($result)) {
 	$topics[$row['id']] = $row;
 }	
 
+$tpl_topics = array();
 foreach ($topics as $topic_id=>$topic) {
 	$last_post = time(); //$cur_set['last_post']
 	$isnew_topic = 
@@ -122,7 +123,7 @@ foreach ($topics as $topic_id=>$topic) {
 		$posts[$row['id']] = $row;
 	}
 	ksort($posts);
-	if (count($posts)>1) {
+	if (count($posts)>0) {
 		$tpl_posts = array();
 		foreach ($posts as $post_id=>$post) {
 			$tpl_posts[] = 

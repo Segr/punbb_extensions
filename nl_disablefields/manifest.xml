@@ -2,8 +2,7 @@
 <extension engine="1.0">
 	<id>nl_disablefields</id>
 	<title>[NL] Disable Fields in Profile</title>
-	<version>
-0.11</version>
+	<version>0.11</version>
 	<description>Lets you disable default fields in profile.</description>
 	<author>Segr</author>
 	<minversion>1.4</minversion>

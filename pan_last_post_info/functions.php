@@ -11,7 +11,7 @@ function pan_get_avatar($user_id, $user_avatar, $avatar_width, $avatar_height)
 	
 	if (strpos($avatar_markup, 'class="')!==false)
 		$avatar_markup = str_replace('class="', 'class="list-avatar ', $avatar_markup);
-		else
+	else
 		$avatar_markup = str_replace('<img', '<img class="list-avatar"', $avatar_markup);
 
 	if (empty($avatar_markup)) {

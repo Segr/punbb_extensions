@@ -3,8 +3,7 @@
 <extension engine="1.0">
 	<id>nl_gravatar</id>
 	<title>[NL] Gravatars</title>
-	<version>
-0.15</version>
+	<version>0.15</version>
 	<description>Adds a new profile section for users to link to their Gravatar.</description>
 	<author>Segr</author>
 	<minversion>1.4</minversion>

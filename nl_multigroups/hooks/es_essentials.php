@@ -18,6 +18,7 @@ function multigroups_updatequery_forumpermission($query, $multigroups='') {
 					$query['JOINS'][$key][$joinkey] = '('.$forum_db->query_build($tempquery, true).') AS fp';
 					$query['JOINS'][$key]['ON'] = $match[1];
 					
+					/* 
 					$query['FROM'] = $forum_db->prefix.$query['FROM'];
 					foreach($query['JOINS'] as $k=>$v) {
 						if ($k!=$key) {
@@ -26,11 +27,7 @@ function multigroups_updatequery_forumpermission($query, $multigroups='') {
 						}
 					}
 					$query['PARAMS']['NO_PREFIX'] = 1;
-					break;
-				}
-				if (preg_match('~fp\.forum_id=(\d+)\s+AND\s+fp\.group_id\s*=s*u\.group_id~i', $query['JOINS'][$key]['ON'], $match)) {
-					$query['JOINS'][$key]['ON'] = str_replace('fp.group_id=u.group_id', '(fp.group_id=u.group_id OR CONCAT(\',\',u.g_multi,\',\') LIKE CONCAT(\'%,\',fp.group_id,\',%\'))', $query['JOINS'][$key]['ON']);
-					$query['SELECT'] .= ', MAX(fp.read_forum) as  as tmp_read_forum';
+					*/
 					break;
 				}
 			}

@@ -4,7 +4,7 @@
 <extension engine="1.0"> 
 	<id>nl_multigroups</id>
 	<title>[NL] Multi Groups</title>
-	<version>0.13</version>
+	<version>0.14</version>
 	<description>Multi Groups for Users</description>
 	<author>Segr (original by Xakker)</author>
 	<minversion>1.4.2</minversion>
@@ -29,10 +29,6 @@
 			global $forum_user;
 			$query = multigroups_updatequery_forumpermission($query, $forum_user['g_multi']);
 		]]></hook>
-
-		<hook id="fn_send_subscriptions_qr_get_users_to_notify,fn_send_forum_subscriptions_qr_get_users_to_notify"><![CDATA[
-			$query = multigroups_updatequery_forumpermission($query, 1);
-		]]></hook>
 		<hook id="mi_report_qr_get_topic_data"><![CDATA[
 			global $forum_user;
 			$query['JOINS'][] = array(
@@ -41,6 +37,19 @@
 				);
 			$query['WHERE'] = (isset($query['WHERE']) ? $query['WHERE'].' AND ':'') . '(fp.read_forum IS NULL OR fp.read_forum=1)';
 			$query = multigroups_updatequery_forumpermission($query, $forum_user['g_multi']);
+		]]></hook>
+		<hook id="fn_send_subscriptions_qr_get_users_to_notify,fn_send_forum_subscriptions_qr_get_users_to_notify"><![CDATA[
+			if (isset($query['JOINS'])) {
+				foreach (array_keys($query['JOINS']) as $key) {
+					$joinkey = key($query['JOINS'][$key]);
+					if (preg_match('~forum_perms\s+as\s+fp~i', $query['JOINS'][$key][$joinkey]) && preg_match('~fp\.forum_id\s*=(\s*\d+)\s+AND\s+fp\.group_id\s*=s*u\.group_id~i', $query['JOINS'][$key]['ON'], $match)) {
+						$query['JOINS'][$key]['ON'] = str_replace('fp.group_id=u.group_id', '(fp.group_id=u.group_id OR CONCAT(\',\',u.g_multi,\',\') LIKE CONCAT(\'%,\',fp.group_id,\',%\'))', $query['JOINS'][$key]['ON']);
+						$query['SELECT'] .= ', MAX(fp.read_forum) as tmp_read_forum';
+						break;
+					}
+				}
+			}
+			$query['PARAMS']['FORUM_PERMISSION_UPDATED'] = 1;
 		]]></hook>
 
 		<hook id="agr_qr_get_allowed_base_groups,aus_change_group_qr_get_groups,agr_qr_get_groups,pf_change_details_admin_qr_get_groups,ul_qr_get_groups"><![CDATA[

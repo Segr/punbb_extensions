@@ -2,7 +2,7 @@
 if (!defined('FORUM')) die();
 global $forum_db;
 
-$gr_site = 'http://www.gravatar.com';
+$gr_site = ((isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] == 'on') ? 'https' : 'http').'://www.gravatar.com';
 
 if ($avatar_markup=='' && $user_id) {
 	$gr_query = array(
