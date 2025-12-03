@@ -2,7 +2,7 @@
 <extension engine="1.0">
 	<id>nl_disablefields</id>
 	<title>[NL] Disable Fields in Profile</title>
-	<version>0.11</version>
+	<version>0.12</version>
 	<description>Lets you disable default fields in profile.</description>
 	<author>Segr</author>
 	<minversion>1.4</minversion>
@@ -64,11 +64,11 @@
 		<hook id="pf_change_details_identity_pre_yahoo"><![CDATA[
 			include $ext_info['path'].'/hooks/pf_change_details_identity_pre_yahoo.php';
 		]]></hook>
-		<hook id="pf_change_details_identity_pre_contact_fieldset_end"><![CDATA[
-			include $ext_info['path'].'/hooks/pf_change_details_identity_pre_contact_fieldset_end.php';
+		<hook id="pf_change_details_identity_pre_messengers_fieldset_end"><![CDATA[
+			include $ext_info['path'].'/hooks/pf_change_details_identity_pre_messengers_fieldset_end.php';
 		]]></hook>
-		<hook id="pf_change_details_identity_contact_fieldset_end"><![CDATA[
-			include $ext_info['path'].'/hooks/pf_change_details_identity_contact_fieldset_end.php';
+		<hook id="pf_change_details_identity_messengers_fieldset_end"><![CDATA[
+			include $ext_info['path'].'/hooks/pf_change_details_identity_messengers_fieldset_end.php';
 		]]></hook>
 	</hooks>
 </extension>
