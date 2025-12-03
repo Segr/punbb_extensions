@@ -11,18 +11,10 @@ $forum_page['group_count'] = $forum_page['item_count'] = 0;
 	<legend class="group-legend"><strong><?php echo $lang_nl_nobot['noBot Options'] ?></strong></legend>
 
 	<div class="sf-set set<?php echo ++$forum_page['item_count'] ?>">
-		<div class="sf-box text">
-			<input type="hidden" name="form[nl_nobot_recaptcha_pubkey]" value="" />
-			<label for="fld<?php echo ++$forum_page['fld_count'] ?>"><span><?php echo $lang_nl_nobot['Public key'] ?></span><small><?php echo $lang_nl_nobot['Public key label'] ?></small></label><br />
-			<span class="fld-input"><input type="text" id="fld<?php echo $forum_page['fld_count'] ?>" name="form[nl_nobot_recaptcha_pubkey]" size="50" value="<?php echo $forum_config['o_nl_nobot_recaptcha_pubkey'] ?>" /></span>
-		</div>
-	</div>
-
-	<div class="sf-set set<?php echo ++$forum_page['item_count'] ?>">
-		<div class="sf-box text">
-			<input type="hidden" name="form[nl_nobot_recaptcha_privkey]" value="" />
-			<label for="fld<?php echo ++$forum_page['fld_count'] ?>"><span><?php echo $lang_nl_nobot['Private key'] ?></span><small><?php echo $lang_nl_nobot['Private key label'] ?></small></label><br />
-			<span class="fld-input"><input type="text" id="fld<?php echo $forum_page['fld_count'] ?>" name="form[nl_nobot_recaptcha_privkey]" size="50" value="<?php echo $forum_config['o_nl_nobot_recaptcha_privkey'] ?>" /></span>
+		<div class="sf-box checkbox">
+			<input type="hidden" name="form[nl_nobot_register_honeypot]" value="0" />
+			<span class="fld-input"><input type="checkbox" id="fld<?php echo ++$forum_page['fld_count'] ?>" name="form[nl_nobot_register_honeypot]" value="1"<?php if ($forum_config['o_nl_nobot_register_honeypot'] == '1') echo ' checked="checked"' ?> /></span>
+			<label for="fld<?php echo $forum_page['fld_count'] ?>"><span><?php echo $lang_nl_nobot['Register page HoneyPot field'] ?></span> <?php echo $lang_nl_nobot['Register page HoneyPot field label'] ?></label>
 		</div>
 	</div>
 
@@ -43,13 +35,60 @@ $forum_page['group_count'] = $forum_page['item_count'] = 0;
 	</div>
 
 	<div class="sf-set set<?php echo ++$forum_page['item_count'] ?>">
-		<div class="sf-box checkbox">
-			<input type="hidden" name="form[nl_nobot_register_honeypot]" value="0" />
-			<span class="fld-input"><input type="checkbox" id="fld<?php echo ++$forum_page['fld_count'] ?>" name="form[nl_nobot_register_honeypot]" value="1"<?php if ($forum_config['o_nl_nobot_register_honeypot'] == '1') echo ' checked="checked"' ?> /></span>
-			<label for="fld<?php echo $forum_page['fld_count'] ?>"><span><?php echo $lang_nl_nobot['Register page HoneyPot field'] ?></span> <?php echo $lang_nl_nobot['Register page HoneyPot field label'] ?></label>
+		<div class="sf-box text">
+			<input type="hidden" name="form[nl_nobot_recaptcha_pubkey]" value="" />
+			<label for="fld<?php echo ++$forum_page['fld_count'] ?>"><span><?php echo $lang_nl_nobot['Public key'] ?></span><small><?php echo $lang_nl_nobot['Public key label'] ?></small></label><br />
+			<span class="fld-input"><input type="text" id="fld<?php echo $forum_page['fld_count'] ?>" name="form[nl_nobot_recaptcha_pubkey]" size="50" value="<?php echo $forum_config['o_nl_nobot_recaptcha_pubkey'] ?>" /></span>
 		</div>
 	</div>
 
+	<div class="sf-set set<?php echo ++$forum_page['item_count'] ?>">
+		<div class="sf-box text">
+			<input type="hidden" name="form[nl_nobot_recaptcha_privkey]" value="" />
+			<label for="fld<?php echo ++$forum_page['fld_count'] ?>"><span><?php echo $lang_nl_nobot['Private key'] ?></span><small><?php echo $lang_nl_nobot['Private key label'] ?></small></label><br />
+			<span class="fld-input"><input type="text" id="fld<?php echo $forum_page['fld_count'] ?>" name="form[nl_nobot_recaptcha_privkey]" size="50" value="<?php echo $forum_config['o_nl_nobot_recaptcha_privkey'] ?>" /></span>
+		</div>
+	</div>
+
+	<div class="sf-set set<?php echo ++$forum_page['item_count'] ?>">
+		<div class="sf-box checkbox">
+			<input type="hidden" name="form[nl_nobot_register_yacaptcha]" value="0" />
+			<span class="fld-input"><input type="checkbox" id="fld<?php echo ++$forum_page['fld_count'] ?>" name="form[nl_nobot_register_yacaptcha]" value="1"<?php if ($forum_config['o_nl_nobot_register_yacaptcha'] == '1') echo ' checked="checked"' ?> /></span>
+			<label for="fld<?php echo $forum_page['fld_count'] ?>"><span><?php echo $lang_nl_nobot['Register page yaCAPTCHA field'] ?></span> <?php echo $lang_nl_nobot['Register page yaCAPTCHA field label'] ?></label>
+		</div>
+	</div>
+
+	<div class="sf-set set<?php echo ++$forum_page['item_count'] ?>">
+		<div class="sf-box text">
+			<input type="hidden" name="form[nl_nobot_yacaptcha_pubkey]" value="" />
+			<label for="fld<?php echo ++$forum_page['fld_count'] ?>"><span><?php echo $lang_nl_nobot['yaCAPTCHA Public key'] ?></span><small><?php echo $lang_nl_nobot['yaCAPTCHA Public key label'] ?></small></label><br />
+			<span class="fld-input"><input type="text" id="fld<?php echo $forum_page['fld_count'] ?>" name="form[nl_nobot_yacaptcha_pubkey]" size="50" value="<?php echo $forum_config['o_nl_nobot_yacaptcha_pubkey'] ?>" /></span>
+		</div>
+	</div>
+
+	<div class="sf-set set<?php echo ++$forum_page['item_count'] ?>">
+		<div class="sf-box text">
+			<input type="hidden" name="form[nl_nobot_yacaptcha_privkey]" value="" />
+			<label for="fld<?php echo ++$forum_page['fld_count'] ?>"><span><?php echo $lang_nl_nobot['yaCAPTCHA Private key'] ?></span><small><?php echo $lang_nl_nobot['yaCAPTCHA Private key label'] ?></small></label><br />
+			<span class="fld-input"><input type="text" id="fld<?php echo $forum_page['fld_count'] ?>" name="form[nl_nobot_yacaptcha_privkey]" size="50" value="<?php echo $forum_config['o_nl_nobot_yacaptcha_privkey'] ?>" /></span>
+		</div>
+	</div>
+
+	<div class="sf-set set<?php echo ++$forum_page['item_count'] ?>">
+		<div class="sf-box checkbox">
+			<input type="hidden" name="form[nl_nobot_cleantalk]" value="0" />
+			<span class="fld-input"><input type="checkbox" id="fld<?php echo ++$forum_page['fld_count'] ?>" name="form[nl_nobot_cleantalk]" value="1"<?php if ($forum_config['o_nl_nobot_cleantalk'] == '1') echo ' checked="checked"' ?> /></span>
+			<label for="fld<?php echo $forum_page['fld_count'] ?>"><span><?php echo $lang_nl_nobot['Register page CleanTalk field'] ?></span> <?php echo $lang_nl_nobot['Register page CleanTalk field label'] ?></label>
+		</div>
+	</div>
+
+	<div class="sf-set set<?php echo ++$forum_page['item_count'] ?>">
+		<div class="sf-box text">
+			<input type="hidden" name="form[nl_nobot_cleantalk_key]" value="" />
+			<label for="fld<?php echo ++$forum_page['fld_count'] ?>"><span><?php echo $lang_nl_nobot['CleanTalk Key'] ?></span><small><?php echo $lang_nl_nobot['CleanTalk Key label'] ?></small></label><br />
+			<span class="fld-input"><input type="text" id="fld<?php echo $forum_page['fld_count'] ?>" name="form[nl_nobot_cleantalk_key]" size="50" value="<?php echo $forum_config['o_nl_nobot_cleantalk_key'] ?>" /></span>
+		</div>
+	</div>
 
 </fieldset>
 

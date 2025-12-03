@@ -4,8 +4,8 @@
 <extension engine="1.0">
 	<id>nl_nobot</id>
 	<title>[NL] noBot</title>
-	<version>0.2.1</version>
-	<description>reCAPTCHA, HoneyPot and others</description>
+	<version>0.2.4</version>
+	<description>reCAPTCHA, yaCAPTCHA, HoneyPot and others</description>
 	<author>Segr (original PanBB.Ru created the idea Nihi1ist)</author>
 	<minversion>1.4.2</minversion>
 	<maxtestedon>1.4.5</maxtestedon>
