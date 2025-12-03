@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE extension SYSTEM "ext-1.0.dtd">
+<extension engine="1.0">
+	<id>nolink_from_guest</id>
+	<title>NoLink From Guest</title>
+	<version>1.0.0</version>
+	<description>Delete Link from Guest in Profile, Signatute</description>
+	<author>Segr</author>
+	<minversion>1.3.0</minversion>
+	<maxtestedon>1.4.4</maxtestedon>
+	<install><![CDATA[
+	]]></install>
+	<uninstall><![CDATA[
+	]]></uninstall>
+	<hooks>
+		<hook id="vt_row_pre_display"><![CDATA[
+			if ($forum_user['is_guest']) {
+				$forum_page['message']['signature'] = '';
+				$forum_page['post_options']['contacts'] = '';
+			}
+		]]></hook>
+		<hook id="pf_view_details_pre_header_load
+			if ($forum_user['is_guest']) {
+				$forum_page['user_contact']['website'] = '';
+				$forum_page['sig_demo'] = '';
+			}		
+		]]></hook>
+	</hooks>
+</extension>
